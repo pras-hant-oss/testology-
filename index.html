@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasteology Cafe | Birmingham</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --accent: #c4a882;
+            --accent-light: #d4bfa0;
+            --accent-dark: #a08868;
+            --white: #ffffff;
+            --off-white: #faf9f7;
+            --cream: #f5f0e8;
+            --light-gray: #f0ede8;
+            --text: #2c2c2c;
+            --text-light: #6b6b6b;
+            --text-muted: #999999;
+            --border: #e8e4de;
+            --green: #5a8a5a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            background: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+        }
+        /* NAVIGATION */
+        nav {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+        nav.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 30px rgba(0,0,0,0.06);
+            padding: 15px 60px;
+        }
+        nav.scrolled .logo, nav.scrolled .nav-links a { color: var(--primary); }
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 2px;
+            transition: color 0.3s;
+        }
+        .logo span {
+            font-style: italic;
+            font-weight: 300;
+            font-size: 1rem;
+            display: block;
+            letter-spacing: 4px;
+            margin-top: -5px;
+            opacity: 0.9;
+        }
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover { color: var(--accent); }
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        /* HERO */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1920&q=80') center/cover;
+            opacity: 0.25;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: var(--white);
+            max-width: 900px;
+            padding: 0 30px;
+            animation: fadeInUp 1s ease-out;
+        }
+        .hero-subtitle {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 25px;
+            display: block;
+        }
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 300;
+            line-height: 1.05;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        .hero h1 em {
+            font-style: italic;
+            font-weight: 400;
+            color: var(--accent-light);
+        }
+        .hero-desc {
+            font-size: 1.15rem;
+            font-weight: 300;
+            opacity: 0.85;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+        .hero-rating {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+        .hero-rating .stars {
+            color: #f5c518;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+        .hero-rating span {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-weight: 400;
+        }
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 40px;
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        .hero-cta:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--primary);
+        }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: var(--white);
+            opacity: 0.6;
+            animation: bounce 2s infinite;
+        }
+        .scroll-indicator span {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        .scroll-indicator i { font-size: 1.2rem; }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* SECTIONS COMMON */
+        section { padding: 100px 60px; }
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+        .section-tag {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent-dark);
+            margin-bottom: 15px;
+            display: block;
+        }
+        .section-title {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 400;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        .section-title em { font-style: italic; color: var(--accent-dark); }
+        .section-desc {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+        /* ABOUT */
+        .about { background: var(--off-white); }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .about-images { position: relative; }
+        .about-img-main {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+        }
+        .about-img-accent {
+            position: absolute;
+            bottom: -30px;
+            right: -30px;
+            width: 250px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 8px solid var(--off-white);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        .about-content h2 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 400;
+            margin-bottom: 25px;
+            line-height: 1.2;
+        }
+        .about-content h2 em { font-style: italic; color: var(--accent-dark); }
+        .about-content p {
+            font-size: 1.05rem;
+            color: var(--text-light);
+            margin-bottom: 20px;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 40px;
+        }
+        .about-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        .about-feature i {
+            color: var(--accent-dark);
+            font-size: 1.3rem;
+            margin-top: 3px;
+        }
+        .about-feature h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .about-feature p {
+            font-size: 0.9rem;
+            margin: 0;
+            color: var(--text-muted);
+        }
+        /* SIGNATURE DISHES */
+        .signature {
+            background: var(--white);
+            padding-bottom: 60px;
+        }
+        .signature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 35px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .signature-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            transition: all 0.4s ease;
+            border: 1px solid var(--border);
+        }
+        .signature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.1);
+        }
+        .signature-card .img-wrap {
+            position: relative;
+            overflow: hidden;
+            height: 280px;
+        }
+        .signature-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .signature-card:hover img { transform: scale(1.08); }
+        .signature-card .badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent);
+            color: var(--white);
+            padding: 5px 14px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 3px;
+        }
+        .signature-card .badge.vegan { background: var(--green); }
+        .signature-card .badge.popular { background: #c44d4d; }
+        .signature-card .card-body { padding: 28px; }
+        .signature-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .signature-card p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 18px;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+        .signature-card .price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--accent-dark);
+        }
+        .full-menu-btn { text-align: center; margin-top: 60px; }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 45px;
+            background: var(--primary);
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border-radius: 2px;
+        }
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .btn-primary i { transition: transform 0.3s; }
+        .btn-primary:hover i { transform: translateX(5px); }
+        /* FULL MENU OVERLAY */
+        .menu-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
+        }
+        .menu-overlay.active { opacity: 1; visibility: visible; }
+        .menu-modal {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 100%;
+            max-width: 700px;
+            height: 100%;
+            background: var(--off-white);
+            z-index: 2001;
+            overflow-y: auto;
+            transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: -20px 0 60px rgba(0,0,0,0.15);
+        }
+        .menu-modal.active { right: 0; }
+        .menu-modal-header {
+            position: sticky;
+            top: 0;
+            background: var(--off-white);
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            z-index: 10;
+        }
+        .menu-modal-header h2 {
+            font-size: 1.8rem;
+            font-weight: 500;
+        }
+        .menu-modal-header h2 em { font-style: italic; color: var(--accent-dark); }
+        .menu-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        .menu-close:hover { background: var(--light-gray); }
+        .menu-modal-body { padding: 20px 40px 60px; }
+        .menu-nav {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            position: sticky;
+            top: 90px;
+            background: var(--off-white);
+            padding: 15px 0;
+            z-index: 9;
+        }
+        .menu-nav-btn {
+            padding: 8px 18px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-light);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 30px;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .menu-nav-btn:hover, .menu-nav-btn.active {
+            background: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+        .menu-section { margin-bottom: 50px; }
+        .menu-section-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+        }
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 18px 0;
+            border-bottom: 1px dashed var(--border);
+            transition: all 0.3s;
+        }
+        .menu-item:hover { padding-left: 10px; }
+        .menu-item-info { flex: 1; }
+        .menu-item-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .menu-item-desc {
+            font-size: 0.88rem;
+            color: var(--text-light);
+            font-weight: 300;
+            line-height: 1.5;
+            max-width: 85%;
+        }
+        .menu-item-price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--accent-dark);
+            white-space: nowrap;
+            margin-left: 20px;
+        }
+        .menu-item-tags {
+            display: flex;
+            gap: 6px;
+            margin-top: 6px;
+        }
+        .menu-tag {
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .menu-tag.vegan { background: #e8f5e8; color: var(--green); }
+        .menu-tag.new { background: #fff3e0; color: #e65100; }
+        .menu-tag.popular { background: #fce4ec; color: #c62828; }
+        /* GALLERY */
+        .gallery {
+            background: var(--primary);
+            color: var(--white);
+            padding: 100px 0;
+        }
+        .gallery .section-tag { color: var(--accent); }
+        .gallery .section-title { color: var(--white); }
+        .gallery .section-desc { color: rgba(255,255,255,0.6); }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+            aspect-ratio: 1;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-item-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+        .gallery-item-overlay span {
+            color: var(--white);
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 500;
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 10px 20px;
+        }
+        .gallery-item.wide {
+            grid-column: span 2;
+            aspect-ratio: 2/1;
+        }
+        .gallery-item.tall {
+            grid-row: span 2;
+            aspect-ratio: 1/2;
+        }
+        /* REVIEWS */
+        .reviews { background: var(--cream); }
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .review-card {
+            background: var(--white);
+            padding: 40px 35px;
+            border-radius: 8px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.04);
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+        }
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+        }
+        .review-stars {
+            color: #f5c518;
+            font-size: 0.9rem;
+            margin-bottom: 18px;
+            letter-spacing: 2px;
+        }
+        .review-text {
+            font-size: 1rem;
+            color: var(--text);
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-weight: 300;
+            font-style: italic;
+        }
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .review-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .review-author-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        .review-author-info span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        /* INFO */
+        .info { background: var(--white); }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .info-card {
+            text-align: center;
+            padding: 40px 25px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .info-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+        }
+        .info-card i {
+            font-size: 2rem;
+            color: var(--accent-dark);
+            margin-bottom: 20px;
+        }
+        .info-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        .info-card p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+        .info-card a {
+            color: var(--accent-dark);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .info-card a:hover { color: var(--primary); }
+        /* FOOTER */
+        footer {
+            background: var(--primary);
+            color: var(--white);
+            padding: 80px 60px 40px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto 60px;
+        }
+        .footer-brand .logo {
+            color: var(--white);
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        .footer-brand p {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.8;
+            font-weight: 300;
+            margin-bottom: 25px;
+        }
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        .footer-social a:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--primary);
+        }
+        .footer-col h4 {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            color: var(--accent);
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 300;
+            transition: color 0.3s;
+        }
+        .footer-col ul li a:hover { color: var(--accent); }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-bottom p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+            font-weight: 300;
+        }
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .signature-grid { grid-template-columns: repeat(2, 1fr); }
+            .about-grid { grid-template-columns: 1fr; gap: 50px; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .gallery-item.wide, .gallery-item.tall {
+                grid-column: span 1;
+                grid-row: span 1;
+                aspect-ratio: 1;
+            }
+            .reviews-grid { grid-template-columns: repeat(2, 1fr); }
+            .info-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            nav { padding: 15px 25px; }
+            nav.scrolled { padding: 12px 25px; }
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            section { padding: 70px 25px; }
+            .hero h1 { font-size: 2.5rem; }
+            .signature-grid { grid-template-columns: 1fr; }
+            .about-features { grid-template-columns: 1fr; }
+            .reviews-grid { grid-template-columns: 1fr; }
+            .info-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+            .menu-modal { max-width: 100%; }
+            .menu-modal-body, .menu-modal-header { padding-left: 25px; padding-right: 25px; }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#" class="logo">
+            TASTEOLOGY
+            <span>CAFE</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#signature">Menu</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#info">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="hero-subtitle">Brunch Restaurant & Cafe</span>
+            <h1>Where Every Bite <em>Tells a Story</em></h1>
+            <p class="hero-desc">A cozy, warm atmosphere in the heart of Birmingham. Serving handcrafted brunch, artisan coffee, and unforgettable flavours since day one.</p>
+            <div class="hero-rating">
+                <span class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></span>
+                <span>4.8 (527 reviews) &middot; £10–20 per person</span>
+            </div>
+            <a href="#signature" class="hero-cta">
+                Explore Our Menu <i class="fas fa-arrow-down"></i>
+            </a>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-grid">
+            <div class="about-images">
+                <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&q=80" alt="Tasteology Interior" class="about-img-main">
+                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80" alt="Coffee Art" class="about-img-accent">
+            </div>
+            <div class="about-content">
+                <span class="section-tag">Our Story</span>
+                <h2>Crafted with <em>Passion</em> & Served with <em>Love</em></h2>
+                <p>Tasteology is more than just a cafe — it is a celebration of flavour, community, and the art of brunch. Nestled on Grove Lane in Birmingham, we have built a reputation for serving dishes made with top-notch ingredients and great care.</p>
+                <p>From our signature pistachio latte to our hearty all-day breakfast, every item on our menu is designed to delight. Our chef personally greets every guest, ensuring a warm and inviting experience from the moment you walk in.</p>
+                <div class="about-features">
+                    <div class="about-feature">
+                        <i class="fas fa-leaf"></i>
+                        <div>
+                            <h4>Fresh Ingredients</h4>
+                            <p>Top-quality produce sourced daily</p>
+                        </div>
+                    </div>
+                    <div class="about-feature">
+                        <i class="fas fa-mug-hot"></i>
+                        <div>
+                            <h4>Artisan Coffee</h4>
+                            <p>Specialty roasts & flavoured lattes</p>
+                        </div>
+                    </div>
+                    <div class="about-feature">
+                        <i class="fas fa-utensils"></i>
+                        <div>
+                            <h4>All-Day Brunch</h4>
+                            <p>Breakfast served from 9 AM to 4 PM</p>
+                        </div>
+                    </div>
+                    <div class="about-feature">
+                        <i class="fas fa-heart"></i>
+                        <div>
+                            <h4>Halal Friendly</h4>
+                            <p>Halal meat & vegetarian options</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Signature Dishes -->
+    <section class="signature" id="signature">
+        <div class="section-header">
+            <span class="section-tag">Chef's Selection</span>
+            <h2 class="section-title">Signature <em>Dishes</em></h2>
+            <p class="section-desc">Handpicked favourites that have won the hearts of our guests. Each dish is crafted with care and served with pride.</p>
+        </div>
+        <div class="signature-grid">
+            <div class="signature-card">
+                <div class="img-wrap">
+                    <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=600&q=80" alt="French Toast">
+                    <span class="badge popular">Popular</span>
+                </div>
+                <div class="card-body">
+                    <h3>French Toast</h3>
+                    <p>Three soft brioche toast dipped in special vanilla, served with a scoop of ice-cream and a choice of mixed fruits, honey, maple, or Nutella.</p>
+                    <div class="price">£10.49</div>
+                </div>
+            </div>
+            <div class="signature-card">
+                <div class="img-wrap">
+                    <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=600&q=80" alt="Vegan Brunch">
+                    <span class="badge vegan">Vegan</span>
+                </div>
+                <div class="card-body">
+                    <h3>Vegan Brunch</h3>
+                    <p>Guacamole & houmous, veggie sausages, tomato, beans, hashbrowns and a choice of toast. A plant-based feast full of flavour.</p>
+                    <div class="price">£13.99</div>
+                </div>
+            </div>
+            <div class="signature-card">
+                <div class="img-wrap">
+                    <img src="https://images.unsplash.com/photo-1572449043416-55f4685c9bb7?w=600&q=80" alt="Upgraded Shakshouka">
+                    <span class="badge">Chef's Pick</span>
+                </div>
+                <div class="card-body">
+                    <h3>Upgraded Shakshouka</h3>
+                    <p>Two spiced merguez with two poached eggs in our authentic homemade shakshouka, served with sourdough bread.</p>
+                    <div class="price">£9.69</div>
+                </div>
+            </div>
+            <div class="signature-card">
+                <div class="img-wrap">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80" alt="The Black Hole Burger">
+                    <span class="badge popular">Popular</span>
+                </div>
+                <div class="card-body">
+                    <h3>The Black Hole</h3>
+                    <p>Home made beef patty, onion, lettuce, double cheese, turkey rashers, special sauce in a soft toasted brioche bun.</p>
+                    <div class="price">£9.39</div>
+                </div>
+            </div>
+            <div class="signature-card">
+                <div class="img-wrap">
+                    <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?w=600&q=80" alt="Pistachio Latte">
+                    <span class="badge">Must Try</span>
+                </div>
+                <div class="card-body">
+                    <h3>Pistachio Latte</h3>
+                    <p>Our signature pistachio latte, hot or iced. Rich, nutty, and creamy — a customer favourite that puts mainstream chains to shame.</p>
+                    <div class="price">£4.95</div>
+                </div>
+            </div>
+            <div class="signature-card">
+                <div class="img-wrap">
+                    <img src="https://images.unsplash.com/photo-1506084868230-bb9d95c24759?w=600&q=80" alt="The Anomaly Bagel">
+                    <span class="badge">New</span>
+                </div>
+                <div class="card-body">
+                    <h3>The Anomaly Bagel</h3>
+                    <p>Open toasted bagel topped with our home made guacamole, grilled halloumi, cheese, poached eggs. A taste revelation.</p>
+                    <div class="price">£11.49</div>
+                </div>
+            </div>
+        </div>
+        <div class="full-menu-btn">
+            <button class="btn-primary" id="openMenu">
+                View Full Menu <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </section>
+
+    <!-- Full Menu Modal -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+    <div class="menu-modal" id="menuModal">
+        <div class="menu-modal-header">
+            <h2>Our <em>Menu</em></h2>
+            <button class="menu-close" id="closeMenu"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="menu-modal-body">
+            <div class="menu-nav">
+                <button class="menu-nav-btn active" data-section="breakfast">Breakfast</button>
+                <button class="menu-nav-btn" data-section="bunz">Bunz & Bagelz</button>
+                <button class="menu-nav-btn" data-section="pasta">Pastaz</button>
+                <button class="menu-nav-btn" data-section="focaccia">Focaccia</button>
+                <button class="menu-nav-btn" data-section="wraps">Wraps</button>
+                <button class="menu-nav-btn" data-section="french">French Toast</button>
+                <button class="menu-nav-btn" data-section="shakes">Shakes</button>
+                <button class="menu-nav-btn" data-section="drinks">Drinks</button>
+                <button class="menu-nav-btn" data-section="juices">Juices & Tea</button>
+            </div>
+
+            <!-- Breakfast -->
+            <div class="menu-section" id="breakfast">
+                <h3 class="menu-section-title">All Day Breakfast</h3>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">The Full English</div>
+                        <div class="menu-item-desc">Choice of eggs, choice of toast, mushroom, tomato, sausage, turkey rashers, hashbrowns and beans</div>
+                    </div>
+                    <div class="menu-item-price">£13.99</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Royal Breakfast</div>
+                        <div class="menu-item-desc">Choice of eggs, spiced merguez, portion of guacamole, hummus, beans, hashbrown, mushroom and choice of toast</div>
+                    </div>
+                    <div class="menu-item-price">£15.49</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Upgraded Shakshouka</div>
+                        <div class="menu-item-desc">Two spiced merguez with two poached eggs in our authentic homemade shakshouka served with a sourdough</div>
+                    </div>
+                    <div class="menu-item-price">£9.69</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Mediterranean Toast</div>
+                        <div class="menu-item-desc">Sourdough toast topped with choice of guacamole or houmous, eggs and a choice of turkey rashers or smoked salmon</div>
+                    </div>
+                    <div class="menu-item-price">£9.49</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">The Mushroom Toast</div>
+                        <div class="menu-item-desc">Sourdough toast topped with freshly cooked creamy cheesy mushroom, smoked rashers and poached eggs</div>
+                        <div class="menu-item-tags"><span class="menu-tag new">New Recipe</span></div>
+                    </div>
+                    <div class="menu-item-price">£9.49</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Vegan Brunch</div>
+                        <div class="menu-item-desc">Guacamole & houmous, veggie sausages, tomato, beans, hashbrowns and choice of toast</div>
+                        <div class="menu-item-tags"><span class="menu-tag vegan">Vegan</span></div>
+                    </div>
+                    <div class="menu-item-price">£13.99</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Ketology Breakfast</div>
+                        <div class="menu-item-desc">Guacamole, mushroom, merguez, grilled halloumi cheese, turkey rashers and a choice of eggs</div>
+                    </div>
+                    <div class="menu-item-price">£12.99</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Breakfast Brioche</div>
+                        <div class="menu-item-desc">Served with egg and cheese. Add your variant: Smoked Salmon +£2.00, Turkey Rashers +£2.00, Any Sausage +£2.00</div>
+                    </div>
+                    <div class="menu-item-price">£5.69</div>
+                </div>
+            </div>
+
+            <!-- Bunz & Bagelz -->
+            <div class="menu-section" id="bunz">
+                <h3 class="menu-section-title">Bunz & Bagelz</h3>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">The Newton</div>
+                        <div class="menu-item-desc">Home made beef patty, onion, pickles, cheese, special sauce in soft toasted brioche bun</div>
+                    </div>
+                    <div class="menu-item-price">£8.49</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">The Black Hole</div>
+                        <div class="menu-item-desc">Home made beef patty, onion, lettuce, double cheese, turkey rashers, special sauce</div>
+                        <div class="menu-item-tags"><span class="menu-tag popular">Popular</span></div>
+                    </div>
+                    <div class="menu-item-price">£9.39</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">The Big Bang</div>
+                        <div class="menu-item-desc">Grilled chicken, onion, lettuce, double cheese, special sauce in soft brioche bun</div>
+                    </div>
+                    <div class="menu-item-price">£8.79</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">The Quantum</div>
+                        <div class="menu-item-desc">Double homemade beef patty, onion, pickles, double cheese, special sauce in brioche bun</div>
+                    </div>
+                    <div class="menu-item-price">£10.49</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">The Halloumi-nation</div>
+                        <div class="menu-item-desc">Grilled halloumi, mixed pepper salad, special sauce in brioche bun</div>
+                        <div class="menu-item-tags"><span class="menu-tag vegan">Vegan</span></div>
+                    </div>
+                    <div class="menu-item-price">£9.20</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">The Anomaly</div>
+                        <div class="menu-item-desc">Open toasted bagel topped with home made guacamole, grilled halloumi, cheese, poached eggs</div>
+                    </div>
+                    <div class="menu-item-price">£11.49</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">The Orbit</div>
+                        <div class="menu-item-desc">Toasted bagel topped with herb cream cheese, smoked salmon and poached eggs</div>
+                        <div class="menu-item-tags"><span class="menu-tag new">New</span></div>
+                    </div>
+                    <div class="menu-item-price">£11.49</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Bagel Benedict</div>
+                        <div class="menu-item-desc">Smoked rashers, poached eggs, silky hollandaise on a toasted bagel</div>
+                    </div>
+                    <div class="menu-item-price">£11.99</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Bagel Florentine</div>
+                        <div class="menu-item-desc">Poached eggs, baby spinach, smoked salmon and silky hollandaise on a toasted bagel</div>
+                    </div>
+                    <div class="menu-item-price">£11.99</div>
+                </div>
+            </div>
+
+            <!-- Pastaz -->
+            <div class="menu-section" id="pasta">
+                <h3 class="menu-section-title">Pastaz</h3>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Alfredo Fusion</div>
+                        <div class="menu-item-desc">Linguini pasta, creamy white home made sauce with chicken and mozzarella cheese</div>
+                    </div>
+                    <div class="menu-item-price">£9.90</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Tasteology Special</div>
+                        <div class="menu-item-desc">Linguine pasta, chef special sauce, mushroom, tender chicken in special marinade and mozzarella cheese</div>
+                        <div class="menu-item-tags"><span class="menu-tag popular">Popular</span></div>
+                    </div>
+                    <div class="menu-item-price">£9.90</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Primavera</div>
+                        <div class="menu-item-desc">Linguini pasta, freshly roasted mixed vegetables, sauce, basil, cheese and garlic bread</div>
+                        <div class="menu-item-tags"><span class="menu-tag new">New Recipe</span><span class="menu-tag vegan">Vegan</span></div>
+                    </div>
+                    <div class="menu-item-price">£9.40</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Carbonara</div>
+                        <div class="menu-item-desc">Classic creamy carbonara with turkey rashers, parmesan and freshly cracked black pepper</div>
+                    </div>
+                    <div class="menu-item-price">£10.49</div>
+                </div>
+            </div>
+
+            <!-- Focaccia -->
+            <div class="menu-section" id="focaccia">
+                <h3 class="menu-section-title">Focaccia</h3>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Caprese Focaccia</div>
+                        <div class="menu-item-desc">Caprese chicken, chimichuri sauce, mixed salad, tomatoes, mozzarella cheese in a toasted focaccia bun</div>
+                    </div>
+                    <div class="menu-item-price">£9.99</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Focaccia Sandwich</div>
+                        <div class="menu-item-desc">Fresh mozzarella, cherry tomato, pesto in a toasted focaccia bun</div>
+                        <div class="menu-item-tags"><span class="menu-tag vegan">Vegan</span></div>
+                    </div>
+                    <div class="menu-item-price">£7.90</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Transcendence</div>
+                        <div class="menu-item-desc">Fried halloumi, mixed salad, sweet chilli sauce and caramelised onion in a toasted focaccia bun</div>
+                        <div class="menu-item-tags"><span class="menu-tag vegan">Vegan</span></div>
+                    </div>
+                    <div class="menu-item-price">£9.20</div>
+                </div>
+            </div>
+
+            <!-- Wraps -->
+            <div class="menu-section" id="wraps">
+                <h3 class="menu-section-title">Wraps</h3>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Breakfast Wrap</div>
+                        <div class="menu-item-desc">Scrambled eggs, cheese, turkey rashers, Ketchup, merguez and hashbrown in large toasted wrap</div>
+                    </div>
+                    <div class="menu-item-price">£7.59</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Concoction</div>
+                        <div class="menu-item-desc">Choice of grilled chicken or halloumi, mixed salad, home made sauce, onion, pickles, cheese served in a toasted wrap</div>
+                    </div>
+                    <div class="menu-item-price">£7.49</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Sweet Chilli Wrap</div>
+                        <div class="menu-item-desc">Crispy fried chicken, chef sauce, sweet chilli sauce, caramelised onion, cheese, mixed salad in a large toasted wrap</div>
+                    </div>
+                    <div class="menu-item-price">£7.89</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Chicken Wrap</div>
+                        <div class="menu-item-desc">Grilled chicken strips, mixed salad, chef's special sauce in a warm toasted wrap</div>
+                    </div>
+                    <div class="menu-item-price">£8.49</div>
+                </div>
+            </div>
+
+            <!-- French Toast -->
+            <div class="menu-section" id="french">
+                <h3 class="menu-section-title">French Toast</h3>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Classic French Toast</div>
+                        <div class="menu-item-desc">Three soft brioche toast dipped in special vanilla, served with a scoop of ice-cream and a choice of mixed fruits, honey, maple or Nutella</div>
+                        <div class="menu-item-tags"><span class="menu-tag popular">Popular</span></div>
+                    </div>
+                    <div class="menu-item-price">£10.49</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Biscoff French Toast</div>
+                        <div class="menu-item-desc">Brioche toast with Biscoff spread, honey, banana and a scoop of ice-cream</div>
+                    </div>
+                    <div class="menu-item-price">£10.99</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Pistachio French Toast</div>
+                        <div class="menu-item-desc">Brioche toast with pistachio sauce, strawberries and a scoop of ice-cream</div>
+                        <div class="menu-item-tags"><span class="menu-tag new">New</span></div>
+                    </div>
+                    <div class="menu-item-price">£11.49</div>
+                </div>
+            </div>
+
+            <!-- Shakes -->
+            <div class="menu-section" id="shakes">
+                <h3 class="menu-section-title">Shakes</h3>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Ferreroshake</div>
+                        <div class="menu-item-desc">Ferrero rocher and nutella blended to perfection</div>
+                    </div>
+                    <div class="menu-item-price">£4.95</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Date Night</div>
+                        <div class="menu-item-desc">Date, banana and cinnamon — a warm, comforting blend</div>
+                    </div>
+                    <div class="menu-item-price">£4.95</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Banana N Biscoff</div>
+                        <div class="menu-item-desc">Banana, biscoff and caramel sauce</div>
+                    </div>
+                    <div class="menu-item-price">£4.95</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Elite</div>
+                        <div class="menu-item-desc">Banana, mango, dragon fruit — a tropical paradise</div>
+                    </div>
+                    <div class="menu-item-price">£4.95</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Hers'</div>
+                        <div class="menu-item-desc">Strawberries and banana — fresh and fruity</div>
+                    </div>
+                    <div class="menu-item-price">£4.95</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Berry Burst</div>
+                        <div class="menu-item-desc">Mixed berries blended into a vibrant shake</div>
+                    </div>
+                    <div class="menu-item-price">£4.95</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Takes 2 to 'Mango'</div>
+                        <div class="menu-item-desc">Mango lassi — a refreshing Indian classic</div>
+                    </div>
+                    <div class="menu-item-price">£4.95</div>
+                </div>
+            </div>
+
+            <!-- Drinks -->
+            <div class="menu-section" id="drinks">
+                <h3 class="menu-section-title">Drinks Lab</h3>
+                <div class="menu-item">
+                    <div class="menu-item-info"><div class="menu-item-name">Espresso</div></div>
+                    <div class="menu-item-price">£2.60</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info"><div class="menu-item-name">Double Espresso</div></div>
+                    <div class="menu-item-price">£2.90</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info"><div class="menu-item-name">Flat White</div></div>
+                    <div class="menu-item-price">£3.90</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info"><div class="menu-item-name">Cappuccino</div></div>
+                    <div class="menu-item-price">£3.90</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info"><div class="menu-item-name">Hot Chocolate</div></div>
+                    <div class="menu-item-price">£4.00</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info"><div class="menu-item-name">Cortado</div></div>
+                    <div class="menu-item-price">£3.10</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info"><div class="menu-item-name">Americano</div></div>
+                    <div class="menu-item-price">£3.50</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info"><div class="menu-item-name">Macchiato</div></div>
+                    <div class="menu-item-price">£3.10</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info"><div class="menu-item-name">Chai Latte</div></div>
+                    <div class="menu-item-price">£4.20</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info"><div class="menu-item-name">Dirty Chai Latte</div></div>
+                    <div class="menu-item-price">£4.50</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Mocha (Hot / Iced)</div>
+                        <div class="menu-item-tags"><span class="menu-tag popular">Popular</span></div>
+                    </div>
+                    <div class="menu-item-price">£4.50</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Pistachio Latte (Hot / Iced)</div>
+                        <div class="menu-item-tags"><span class="menu-tag popular">Popular</span><span class="menu-tag new">Must Try</span></div>
+                    </div>
+                    <div class="menu-item-price">£4.95</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info"><div class="menu-item-name">Biscoff Latte (Hot / Iced)</div></div>
+                    <div class="menu-item-price">£4.95</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info">
+                        <div class="menu-item-name">Extra Syrups</div>
+                        <div class="menu-item-desc">Vanilla, caramel, hazelnut, and more</div>
+                    </div>
+                    <div class="menu-item-price">£0.50</div>
+                </div>
+            </div>
+
+            <!-- Juices & Tea -->
+            <div class="menu-section" id="juices">
+                <h3 class="menu-section-title">Fresh Juices</h3>
+                <div class="menu-item">
+                    <div class="menu-item-info"><div class="menu-item-name">Apple N Ginger</div></div>
+                    <div class="menu-item-price">£4.95</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info"><div class="menu-item-name">Orange Juice</div></div>
+                    <div class="menu-item-price">£4.95</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info"><div class="menu-item-name">Carrots and Orange</div></div>
+                    <div class="menu-item-price">£4.95</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info"><div class="menu-item-name">Lemonade Mint</div></div>
+                    <div class="menu-item-price">£4.95</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info"><div class="menu-item-name">Daily Detox</div></div>
+                    <div class="menu-item-price">£4.95</div>
+                </div>
+
+                <h3 class="menu-section-title" style="margin-top: 50px;">Tea N Infusions</h3>
+                <div class="menu-item">
+                    <div class="menu-item-info"><div class="menu-item-name">Earl Grey</div></div>
+                    <div class="menu-item-price">£2.95</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info"><div class="menu-item-name">English Tea</div></div>
+                    <div class="menu-item-price">£2.95</div>
+                </div>
+                <div class="menu-item">
+                    <div class="menu-item-info"><div class="menu-item-name">Mint Tea</div></div>
+                    <div class="menu-item-price">£3.50</div>
+                </div>
+            </div>
+
+            <div style="text-align: center; padding: 40px 0; border-top: 1px solid var(--border); margin-top: 30px;">
+                <p style="font-size: 0.85rem; color: var(--text-muted);">All prices include VAT. Menu items and prices subject to change.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="section-header">
+            <span class="section-tag">Visual Feast</span>
+            <h2 class="section-title">Food <em>Gallery</em></h2>
+            <p class="section-desc">A glimpse into the vibrant plates and warm moments that make Tasteology special.</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item wide">
+                <img src="https://images.unsplash.com/photo-1484723091739-30a097e8f929?w=800&q=80" alt="French Toast">
+                <div class="gallery-item-overlay"><span>French Toast</span></div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1498804103079-a6351b050096?w=600&q=80" alt="Pistachio Latte">
+                <div class="gallery-item-overlay"><span>Pistachio Latte</span></div>
+            </div>
+            <div class="gallery-item tall">
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80" alt="Brunch Spread">
+                <div class="gallery-item-overlay"><span>Brunch Spread</span></div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80" alt="Burger">
+                <div class="gallery-item-overlay"><span>The Black Hole</span></div>
+            </div>
+            <div class="gallery-item wide">
+                <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=800&q=80" alt="Shakes">
+                <div class="gallery-item-overlay"><span>Signature Shakes</span></div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80" alt="Coffee">
+                <div class="gallery-item-overlay"><span>Artisan Coffee</span></div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=600&q=80" alt="Vegan">
+                <div class="gallery-item-overlay"><span>Vegan Brunch</span></div>
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1551218808-94e220e084d2?w=600&q=80" alt="Pasta">
+                <div class="gallery-item-overlay"><span>Pastaz</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews" id="reviews">
+        <div class="section-header">
+            <span class="section-tag">Guest Love</span>
+            <h2 class="section-title">What People <em>Say</em></h2>
+            <p class="section-desc">Real reviews from real guests who have experienced the Tasteology difference.</p>
+        </div>
+        <div class="reviews-grid">
+            <div class="review-card">
+                <div class="review-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"Absolutely lovely breakfast from here. Top notch ingredients and produce. Made with great care and tasted great. The pistachio latte was so good it puts any hot drinks from Costa and Starbucks to shame."</p>
+                <div class="review-author">
+                    <div class="review-avatar">G</div>
+                    <div class="review-author-info">
+                        <h4>Gurpz M</h4>
+                        <span>Local Guide</span>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"Awesome place! I had the Ketology breakfast, baklava, and coffee, and everything was absolutely delicious. The atmosphere is warm and inviting, the staff is incredibly friendly."</p>
+                <div class="review-author">
+                    <div class="review-avatar">K</div>
+                    <div class="review-author-info">
+                        <h4>Kamal Yakoub</h4>
+                        <span>Verified Guest</span>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"Best food spot in Birmingham. Breakfast, burgers, pastas, sweet treats, they got it all. Amazing staff as well, 10/10. The chef personally came and met everyone."</p>
+                <div class="review-author">
+                    <div class="review-avatar">H</div>
+                    <div class="review-author-info">
+                        <h4>HDZ Automotive</h4>
+                        <span>Verified Guest</span>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"Soon as we walked in the atmosphere was perfect. Super friendly staff, it smelt amazing and was cosy. We ordered the alfredo and it was different to the usual but nice — in the best way possible."</p>
+                <div class="review-author">
+                    <div class="review-avatar">T</div>
+                    <div class="review-author-info">
+                        <h4>Taz Mania</h4>
+                        <span>Local Guide</span>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                </div>
+                <p class="review-text">"A solid breakfast spot at Tasteology. The atmosphere is cozy and welcoming. I tried the avocado toast with sunny side fried eggs and was impressed by the fresh ingredients and perfectly seasoned flavours."</p>
+                <div class="review-author">
+                    <div class="review-avatar">Y</div>
+                    <div class="review-author-info">
+                        <h4>Yacub S</h4>
+                        <span>Verified Guest</span>
+                    </div>
+                </div>
+            </div>
+            <div class="review-card">
+                <div class="review-stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="review-text">"Lovely pasta... One chef did it all by himself with about 12 people inside and I still got served quickly! The food was exceptional and the service even better. Will definitely be back."</p>
+                <div class="review-author">
+                    <div class="review-avatar">C</div>
+                    <div class="review-author-info">
+                        <h4>Cheshire Kasper</h4>
+                        <span>Local Guide</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Info / Contact Section -->
+    <section class="info" id="info">
+        <div class="section-header">
+            <span class="section-tag">Find Us</span>
+            <h2 class="section-title">Visit <em>Tasteology</em></h2>
+            <p class="section-desc">We are open and ready to serve you. Drop by for brunch, coffee, or just a chat.</p>
+        </div>
+        <div class="info-grid">
+            <div class="info-card">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Location</h3>
+                <p>115 Grove Lane<br>Birmingham B17 0QT<br>United Kingdom</p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-clock"></i>
+                <h3>Opening Hours</h3>
+                <p>Monday, Wednesday – Sunday<br>9:00 AM – 4:00 PM<br><span style="color: var(--text-muted);">Tuesday & Friday: Closed</span></p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-phone"></i>
+                <h3>Contact</h3>
+                <p><a href="tel:+441215721211">+44 121 572 1211</a><br><a href="mailto:hello@tasteology.co.uk">hello@tasteology.co.uk</a></p>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-concierge-bell"></i>
+                <h3>Services</h3>
+                <p>Dine-in &middot; Takeaway<br>Delivery &middot; Outdoor Seating<br>Wheelchair Accessible</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    TASTEOLOGY
+                    <span>CAFE</span>
+                </a>
+                <p>A cozy brunch restaurant and cafe in the heart of Birmingham. Serving handcrafted dishes, artisan coffee, and unforgettable flavours with love and passion.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-tiktok"></i></a>
+                    <a href="#"><i class="fab fa-google"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#signature">Menu</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Menu</h4>
+                <ul>
+                    <li><a href="#signature">All Day Breakfast</a></li>
+                    <li><a href="#signature">Bunz & Bagelz</a></li>
+                    <li><a href="#signature">Pastaz</a></li>
+                    <li><a href="#signature">French Toast</a></li>
+                    <li><a href="#signature">Drinks Lab</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Information</h4>
+                <ul>
+                    <li><a href="#info">Contact Us</a></li>
+                    <li><a href="#info">Opening Hours</a></li>
+                    <li><a href="#info">Accessibility</a></li>
+                    <li><a href="#info">Delivery & Takeaway</a></li>
+                    <li><a href="#info">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Tasteology Cafe. All rights reserved. 115 Grove Lane, Birmingham B17 0QT.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Menu Modal
+        const openMenuBtn = document.getElementById('openMenu');
+        const closeMenuBtn = document.getElementById('closeMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const menuModal = document.getElementById('menuModal');
+
+        openMenuBtn.addEventListener('click', () => {
+            menuOverlay.classList.add('active');
+            menuModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        function closeMenu() {
+            menuOverlay.classList.remove('active');
+            menuModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        closeMenuBtn.addEventListener('click', closeMenu);
+        menuOverlay.addEventListener('click', closeMenu);
+
+        // Menu Navigation
+        const menuNavBtns = document.querySelectorAll('.menu-nav-btn');
+        const menuSections = document.querySelectorAll('.menu-section');
+
+        menuNavBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                menuNavBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const targetId = btn.getAttribute('data-section');
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
